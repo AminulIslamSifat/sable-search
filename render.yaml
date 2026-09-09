@@ -8,8 +8,6 @@ services:
     envVars:
       - key: SSE_HOST
         value: "0.0.0.0"
-      - key: SSE_PORT
-        value: "8080"
       - key: SSE_DEFAULT_PROVIDER
         value: "searxng"
       # Point to your own SearXNG instance or public one
