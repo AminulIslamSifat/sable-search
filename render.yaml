@@ -1,12 +1,13 @@
 services:
-  # SearXNG — stock Docker image, no custom config
+  # SearXNG — stock image, settings injected at startup
   - type: web
     name: sable-searxng
-    runtime: docker
+    runtime: image
     plan: free
     region: oregon
-    dockerfilePath: ./Dockerfile.searxng
-    dockerContext: ./searxng
+    imageUrl: docker.io/searxng/searxng:latest
+    dockerCommand: >-
+      /bin/sh -c "printf 'use_default_settings: true\nsearch:\n  formats:\n    - html\n    - json\nserver:\n  limiter: false\n' > /etc/searxng/settings.yml && exec searxng-run"
 
   # SSE API — proxies SearXNG on port 8080 through its own public URL
   - type: web
