@@ -1,12 +1,12 @@
 services:
-  # SearXNG — custom build to enable JSON API format
+  # SearXNG — stock image, inject settings via startup command
   - type: web
     name: sable-searxng
-    runtime: docker
+    runtime: image
     plan: free
     region: oregon
-    dockerfilePath: ./Dockerfile.searxng
-    dockerContext: ./searxng
+    imageUrl: docker.io/searxng/searxng:latest
+    dockerCommand: /bin/sh -c "printf 'use_default_settings: true\nsearch:\n  formats:\n    - html\n    - json\nserver:\n  limiter: false\n' > /tmp/settings.yml && SEARXNG_SETTINGS_PATH=/tmp/settings.yml exec /usr/local/searxng/dockerfiles/docker-entrypoint.sh"
 
   # SSE API — talks to your SearXNG via Render internal URL
   - type: web
