@@ -1,5 +1,15 @@
 FROM searxng/searxng:latest
 
+# Remove default settings so ours takes precedence
+RUN rm -f /etc/searxng/settings.yml
+
+# Copy our custom settings
 COPY settings.yml /etc/searxng/settings.yml
 
+# Tell SearXNG to use our settings file explicitly
+ENV SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml
+
 EXPOSE 8080
+
+# Use the standard SearXNG entrypoint
+CMD ["/usr/local/searxng/dockerfiles/docker-entrypoint.sh"]
