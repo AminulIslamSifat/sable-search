@@ -1,14 +1,14 @@
 services:
-  # SearXNG — stock image, inject settings via startup command
+  # SearXNG — stock Docker image, no custom config
   - type: web
     name: sable-searxng
-    runtime: image
+    runtime: docker
     plan: free
     region: oregon
-    imageUrl: docker.io/searxng/searxng:latest
-    dockerCommand: /bin/sh -c "printf 'use_default_settings: true\nsearch:\n  formats:\n    - html\n    - json\nserver:\n  limiter: false\n' > /tmp/settings.yml && SEARXNG_SETTINGS_PATH=/tmp/settings.yml exec /usr/local/searxng/dockerfiles/docker-entrypoint.sh"
+    dockerfilePath: ./Dockerfile.searxng
+    dockerContext: ./searxng
 
-  # SSE API — talks to your SearXNG via Render internal URL
+  # SSE API — proxies SearXNG on port 8080 through its own public URL
   - type: web
     name: sable-search
     runtime: python
@@ -21,6 +21,6 @@ services:
         value: "0.0.0.0"
       - key: SSE_DEFAULT_PROVIDER
         value: "searxng"
-      # Points to the SearXNG service deployed above
+      # Internal Render network: SSE → SearXNG on port 8080
       - key: SSE_SEARXNG_URL
-        value: "https://sable-searxng.onrender.com"
+        value: "http://sable-searxng:8080"

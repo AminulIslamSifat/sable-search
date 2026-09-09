@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 
 from app.config import load_config
 from app.providers.base import SearchError
-from app.routes import admin, health, search
+from app.routes import admin, health, proxy, search
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +61,7 @@ async def search_error_handler(request: Request, exc: SearchError) -> JSONRespon
 app.include_router(search.router, tags=["search"])
 app.include_router(health.router, tags=["health"])
 app.include_router(admin.router, tags=["admin"])
+app.include_router(proxy.router, tags=["proxy"])
 
 
 @app.api_route("/", methods=["GET", "HEAD"])
