@@ -7,7 +7,7 @@ services:
     region: oregon
     imageUrl: docker.io/searxng/searxng:latest
     dockerCommand: >-
-      /bin/sh -c "printf 'use_default_settings: true\nsearch:\n  formats:\n    - html\n    - json\nserver:\n  limiter: false\n' > /etc/searxng/settings.yml && exec searxng-run"
+      /bin/sh -c "printf 'use_default_settings: true\nsearch:\n  formats:\n    - html\n    - json\nserver:\n  limiter: false\n' > /etc/searxng/settings.yml && exec /usr/local/searxng/dockerfiles/docker-entrypoint.sh"
 
   # SSE API — proxies SearXNG on port 8080 through its own public URL
   - type: web
