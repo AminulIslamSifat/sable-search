@@ -21,6 +21,6 @@ services:
         value: "0.0.0.0"
       - key: SSE_DEFAULT_PROVIDER
         value: "searxng"
-      # Internal Render network: SSE → SearXNG on port 8080
+      # Public URL — Render services can't resolve each other by hostname
       - key: SSE_SEARXNG_URL
-        value: "http://sable-searxng:8080"
+        value: "https://sable-searxng.onrender.com"

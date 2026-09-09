@@ -8,8 +8,9 @@ from fastapi.responses import Response
 
 router = APIRouter()
 
-# Where SearXNG actually listens inside Render's network
-SEARXNG_INTERNAL = "http://sable-searxng:8080"
+# SearXNG's public Render URL (Render services can't resolve each other by name)
+import os
+SEARXNG_INTERNAL = os.environ.get("SSE_SEARXNG_URL", "https://sable-searxng.onrender.com").rstrip("/")
 
 
 @router.api_route("/searxng/{path:path}", methods=["GET", "POST", "HEAD"])
