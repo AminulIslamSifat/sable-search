@@ -1,11 +1,12 @@
 services:
-  # SearXNG — stock image, no custom config needed
+  # SearXNG — custom build to enable JSON API format
   - type: web
     name: sable-searxng
-    runtime: image
+    runtime: docker
     plan: free
     region: oregon
-    imageUrl: docker.io/searxng/searxng:latest
+    dockerfilePath: ./Dockerfile.searxng
+    dockerContext: ./searxng
 
   # SSE API — talks to your SearXNG via Render internal URL
   - type: web
