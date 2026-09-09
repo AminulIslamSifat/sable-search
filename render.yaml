@@ -1,15 +1,11 @@
 services:
-  # SearXNG — pulled directly from Docker Hub, no build step
+  # SearXNG — stock image, no custom config needed
   - type: web
     name: sable-searxng
     runtime: image
     plan: free
     region: oregon
     imageUrl: docker.io/searxng/searxng:latest
-    healthCheckPath: /search?q=test&format=json
-    envVars:
-      - key: SEARXNG_SETTINGS_PATH
-        value: "/etc/searxng/settings.yml"
 
   # SSE API — talks to your SearXNG via Render internal URL
   - type: web
