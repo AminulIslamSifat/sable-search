@@ -1,16 +1,15 @@
 services:
-  # SearXNG — your own private search engine (Docker)
+  # SearXNG — pulled directly from Docker Hub, no build step
   - type: web
     name: sable-searxng
-    runtime: docker
+    runtime: image
     plan: free
     region: oregon
-    dockerfilePath: ./Dockerfile.searxng
-    dockerContext: ./searxng
-    healthCheckPath: /
+    imageUrl: docker.io/searxng/searxng:latest
+    healthCheckPath: /search?q=test&format=json
     envVars:
-      - key: PORT
-        value: "8080"
+      - key: SEARXNG_SETTINGS_PATH
+        value: "/etc/searxng/settings.yml"
 
   # SSE API — talks to your SearXNG via Render internal URL
   - type: web
