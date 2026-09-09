@@ -1,8 +1,22 @@
 services:
+  # SearXNG — your own private search engine
   - type: web
-    name: sable-search-engine
+    name: sable-searxng
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile.searxng
+    dockerContext: ./searxng
+    envVars:
+      - key: PORT
+        value: "8080"
+
+  # SSE API — talks to your SearXNG internally
+  - type: web
+    name: sable-search
     runtime: python
     plan: free
+    region: oregon
     buildCommand: "pip install -e ."
     startCommand: "python server.py"
     envVars:
@@ -10,11 +24,6 @@ services:
         value: "0.0.0.0"
       - key: SSE_DEFAULT_PROVIDER
         value: "searxng"
-      # Point to your own SearXNG instance or public one
-      # - key: SSE_SEARXNG_URL
-      #   value: "https://your-searxng-instance.com"
-      # Optional API keys (comma-separated for rotation)
-      # - key: SSE_BRAVE_API_KEYS
-      #   sync: false
-      # - key: SSE_TAVILY_API_KEYS
-      #   sync: false
+      # After deploying, set this to your SearXNG Render URL
+      - key: SSE_SEARXNG_URL
+        sync: false

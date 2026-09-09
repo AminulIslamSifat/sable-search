@@ -16,8 +16,8 @@ fallback_chain:
 
 providers:
   searxng:
-    # Public instance that works from cloud IPs. Override with SSE_SEARXNG_URL.
-    url: "https://search.sapti.me"
+    # Local default. On Render, override with SSE_SEARXNG_URL env var.
+    url: "http://localhost:8080"
     general_engines: "bing,mojeek,presearch"
 
   brave:
