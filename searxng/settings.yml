@@ -18,14 +18,35 @@ server:
   port: 8080
   limiter: false
   image_proxy: false
+  method: "GET"
 
 ui:
   static_use_hash: true
+
+outgoing:
+  request_timeout: 10.0
+  max_request_timeout: 15.0
+  useragent_suffix: ""
 
 engines:
   - name: bing
     engine: bing
     shortcut: bi
+    disabled: false
+
+  - name: brave
+    engine: brave
+    shortcut: br
+    disabled: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+
+  - name: google
+    engine: google
+    shortcut: go
     disabled: false
 
   - name: mojeek
@@ -38,12 +59,22 @@ engines:
     shortcut: ps
     disabled: false
 
-  - name: duckduckgo
-    engine: duckduckgo
-    shortcut: ddg
+  - name: qwant
+    engine: qwant
+    shortcut: qw
+    disabled: false
+
+  - name: startpage
+    engine: startpage
+    shortcut: sp
     disabled: false
 
   - name: wikipedia
     engine: wikipedia
     shortcut: wp
+    disabled: false
+
+  - name: wikidata
+    engine: wikidata
+    shortcut: wd
     disabled: false
