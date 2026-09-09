@@ -63,7 +63,7 @@ app.include_router(health.router, tags=["health"])
 app.include_router(admin.router, tags=["admin"])
 
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root() -> dict:
     return {
         "service": "Sable Search Engine",
