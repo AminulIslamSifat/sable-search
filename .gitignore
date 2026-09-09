@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+*.db
+.editor_tools_backups/
+.env
+search_cache.db

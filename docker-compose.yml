@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  sable-search-engine:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SSE_DEFAULT_PROVIDER=searxng
+      - SSE_SEARXNG_URL=http://searxng:8080
+    depends_on:
+      - searxng
+    restart: unless-stopped
+
+  searxng:
+    image: searxng/searxng:latest
+    ports:
+      - "8888:8080"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8888/
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID

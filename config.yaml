@@ -1,0 +1,44 @@
+# Sable Search Engine - Default Configuration
+# All settings can be overridden via environment variables prefixed with SSE_
+# e.g., SSE_DEFAULT_PROVIDER=brave, SSE_SEARXNG_URL=http://my-searxng:8080
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+  log_level: "info"
+
+default_provider: "searxng"
+result_count: 10
+safesearch: "moderate"  # strict | moderate | off
+
+fallback_chain:
+  - duckduckgo
+
+providers:
+  searxng:
+    url: "http://localhost:8080"
+    general_engines: "bing,mojeek,presearch"
+
+  brave:
+    api_keys: []
+    # api_keys:
+    #   - "your-brave-key-here"
+
+  duckduckgo:
+    min_interval: 4.0
+
+  google_pse:
+    api_keys: []
+    cx: ""
+
+  tavily:
+    api_keys: []
+
+  serper:
+    api_keys: []
+
+cache:
+  max_entries: 1000
+  news_ttl_minutes: 30
+  reference_ttl_hours: 24
+  db_path: "search_cache.db"

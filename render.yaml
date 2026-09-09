@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: sable-search-engine
+    runtime: python
+    plan: free
+    buildCommand: "pip install -e ."
+    startCommand: "python server.py"
+    envVars:
+      - key: SSE_HOST
+        value: "0.0.0.0"
+      - key: SSE_PORT
+        value: "8080"
+      - key: SSE_DEFAULT_PROVIDER
+        value: "searxng"
+      # Point to your own SearXNG instance or public one
+      # - key: SSE_SEARXNG_URL
+      #   value: "https://your-searxng-instance.com"
+      # Optional API keys (comma-separated for rotation)
+      # - key: SSE_BRAVE_API_KEYS
+      #   sync: false
+      # - key: SSE_TAVILY_API_KEYS
+      #   sync: false
